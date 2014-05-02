@@ -37,7 +37,7 @@ We want to make sure that Tilestream start automatically.
 1. Copy the upstart script: `sudo cp tilestream-server/tilestream.conf /etc/init/tilestream.conf`
 1. Start server: `sudo start tilestream`
 
-We use `nginx` for some simple caching
+We use `nginx` for some simple caching.  It is set up for a 50 minute cache.
 
 1. Make directory for cache: `sudo mkdir -p /data/nginx/cache`
 1. Copy conf to nginx: `sudo cp tilestream-server/tilestream.nginx.conf /etc/nginx/sites-available/tilestream.nginx.conf`
@@ -45,7 +45,7 @@ We use `nginx` for some simple caching
 1. Remove default config: `sudo rm /etc/nginx/sites-enabled/default`
 1. Restart nginx: `sudo service nginx restart`
 
-Finally
+Finally, you should be able to get to things:
 
 1. For the UI, go here: http://ec2-54-82-59-19.compute-1.amazonaws.com:9000/
 2. For use in maps, use things like:
