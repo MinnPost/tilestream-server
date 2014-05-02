@@ -8,7 +8,7 @@ Using: Ubuntu Server 14.04 LTS (PV) - ami-018c9568 (64-bit)
 
 These are just more specific instructions that the [ones that come with Tilestream](https://github.com/mapbox/tilestream/tree/master#installation-ubuntu-1004).
 
-1. `sudo apt-get install curl build-essential libssl-dev libsqlite3-0 libsqlite3-dev git-core nodejs npm;`
+1. `sudo apt-get install curl build-essential libssl-dev libsqlite3-0 libsqlite3-dev git-core nodejs npm nginx;`
 1. Node installs as `nodejs` so create a link: `sudo ln -s /usr/bin/nodejs /usr/bin/node;`
 1. Make place for Tilestream: `mkdir -p ~/applications && cd ~/applications;`
 1. Get Tilestream: `git clone https://github.com/mapbox/tilestream.git && cd tilestream && npm install;`
@@ -36,3 +36,19 @@ We want to make sure that Tilestream start automatically.
 
 1. Copy the upstart script: `sudo cp tilestream-server/tilestream.conf /etc/init/tilestream.conf`
 1. Start server: `sudo start tilestream`
+
+We use `nginx` for some simple caching
+
+1. Make directory for cache: `sudo mkdir -p /data/nginx/cache`
+1. Copy conf to nginx: `sudo cp tilestream-server/tilestream.nginx.conf /etc/nginx/sites-available/tilestream.nginx.conf`
+1. Enable it: `sudo ln -s /etc/nginx/sites-available/tilestream.nginx.conf /etc/nginx/sites-enabled/tilestream.nginx.conf`
+1. Remove default config: `sudo rm /etc/nginx/sites-enabled/default`
+1. Restart nginx: `sudo service nginx restart`
+
+Finally
+
+1. For the UI, go here: http://ec2-54-82-59-19.compute-1.amazonaws.com:9000/
+2. For use in maps, use things like:
+    * http://ec2-54-82-59-19.compute-1.amazonaws.com:9003/v2/hennepin-parcels/10/245/368.png
+    * http://ec2-54-82-59-19.compute-1.amazonaws.com:9003/v2/hennepin-parcels/10/245/368.grid.json
+    * http://ec2-54-82-59-19.compute-1.amazonaws.com:9003/v2/hennepin-parcels/{z}/{x}/{y}.png
