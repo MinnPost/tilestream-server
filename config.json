@@ -1,0 +1,6 @@
+{
+  "uiPort": 9000,
+  "tilePort": 9000,
+  "host": ["ec2-54-82-59-19.compute-1.amazonaws.com", "*"],
+  "tiles": "/home/ubuntu/Documents/Mapbox/tiles"
+}
